@@ -49,7 +49,7 @@ module.exports = (grunt) ->
 
 		connect:
 			options:
-				hostname: '0.0.0.0', port: 9843, livereload: 19843 # CHANGE ME
+				hostname: '0.0.0.0', port: 9000, livereload: 19000 # CHANGE ME
 			livereload:	options: base: [ '.tmp','src','.' ]
 
 		filerev: build: src: 'www/*.{js,css}'

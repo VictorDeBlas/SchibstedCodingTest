@@ -2,20 +2,17 @@
 
 var angular = require('angular');
 
-module.exports = angular.module('shoppingCartDemoApp', [
+module.exports = angular.module('schibstedCodeTest', [
+	require('./api-videos'),
+	require('./videos'),
 
-	require('./cart'),
-	require('./cart-summary'),
-	require('./products'),
-	require('./products-catalog'),
-
-	require('angular-route'),
+	require('angular-route')
 ])
 
 .config(function($routeProvider) {
 
 	$routeProvider.otherwise({
-		redirectTo: '/catalog',
+		redirectTo: '/list'
 	});
 })
 

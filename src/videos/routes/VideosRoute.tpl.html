@@ -1,0 +1,13 @@
+<div class="form">
+
+	<form>
+		<h4>Videos</h4>
+		<label class="filter-title">Filters:</label>
+		<label>Items per page: </label><input type="text" ng-model="vm.ipp">
+		<button ng-click="vm.searchVideos()">Search!</button>
+	</form>
+
+	<div class="elements" ng-repeat="videos in vm.videos track by videos.name">
+		<video-item video="video"></video-item>
+	</div>
+</div>
