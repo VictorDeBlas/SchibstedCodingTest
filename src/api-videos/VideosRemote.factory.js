@@ -11,17 +11,11 @@ function VideosRemoteFactory($http) {
 
 	//////
 
-	function loadVideos( page, perPage, query, filter, filterEmbeddable, sort, direction ) {
-		var url = './src/api-videos/api.json',
-			params = { 
-				page: page,
-				per_page: perPage,
-				query: query,
-				filter: filter,
-				filter_embeddable: filterEmbeddable,
-				sort: sort,
-				direction: direction
-			};
-		return $http.get( url, params );
+	function loadVideos() {
+		var url = './src/api-videos/api.json';
+		return $http.get( url )
+			.then( function(response) {
+				return response;
+			});
 	}
 }

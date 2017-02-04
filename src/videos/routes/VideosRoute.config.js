@@ -20,9 +20,10 @@ function VideosRouteController(videosService) {
 	///////
 
 	function searchVideos() {
-		videosService.loadVideos(1, 10, '', '', '', '', '')
+		var numberOfItems = ( vm.ipp ) ? vm.ipp : 10;
+		videosService.loadVideos(1, numberOfItems)
 			.then( function(response) {
-				console.log(response);
+				vm.videos = response;
 			});
 	}
 }

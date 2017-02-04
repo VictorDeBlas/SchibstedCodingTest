@@ -12,7 +12,11 @@ function VideosServiceFactory(videosRemote) {
 
 	//////
 
-	function loadVideos( page, perPage, query, filter, filterEmbeddable, sort, direction ) {
-		return videosRemote.loadVideos( page, perPage, query, filter, filterEmbeddable, sort, direction );
+	//, query, filter, filterEmbeddable, sort, direction
+	function loadVideos( page, perPage ) {
+		return videosRemote.loadVideos( page, perPage )
+			.then ( function(response) {
+				return response.data.data.slice(page - 1, perPage*page);
+			});
 	}
 }

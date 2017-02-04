@@ -7,7 +7,7 @@
 		<button ng-click="vm.searchVideos()">Search!</button>
 	</form>
 
-	<div class="elements" ng-repeat="videos in vm.videos track by videos.name">
+	<div class="elements" ng-repeat="video in vm.videos track by video.name">
 		<video-item video="video"></video-item>
 	</div>
 </div>
