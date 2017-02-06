@@ -14,7 +14,8 @@ function VideosRouteConfig($routeProvider) {
 /* @ngInject */
 function VideosRouteController(videosService) {
 	var vm = this,
-		numberOfItems = 10;
+		numberOfItems = 10,
+		videosBackup = [];
 	
 	vm.videos = [];
 
@@ -32,18 +33,17 @@ function VideosRouteController(videosService) {
 	}
 
 	function getMoreRatedUsers() {
-		vm.videos = [];
-		videosService.loadVideos(1, numberOfItems)
-			.then( function(response) {
-				if ( vm.moreRatedUsers ) {
-					response.forEach( function( element ) {
-						if ( element.user.metadata.connections.likes.total > 10 ) {
-							vm.videos.push(element);
-						}
-					});
-				} else {
-					vm.videos = response;
+
+		if ( vm.moreRatedUsers ) {
+			videosBackup = vm.videos;
+			vm.videos = [];
+			videosBackup.forEach( function(element){
+				if ( element.user.metadata.connections.likes.total > 10 ) {
+					vm.videos.push(element);
 				}
 			});
+		} else {
+			vm.videos = videosBackup;
+		}
 	}
 }

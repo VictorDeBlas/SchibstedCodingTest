@@ -4,7 +4,7 @@
 		<h4>Videos</h4>
 		<label class="filter-title">Filters:</label>
 		<label>Items per page: </label><button ng-click="vm.searchVideos(10)">10</button> <button ng-click="vm.searchVideos(25)">25</button> <button ng-click="vm.searchVideos(50)">50</button>
-		<input type="checkbox" ng-change="vm.getMoreRatedUsers()" ng-model="vm.moreRatedUsers"><label ng-click="vm.moreRatedUsers = !vm.moreRatedUsers">View more rated users</label>
+		<input type="checkbox" ng-change="vm.getMoreRatedUsers()" ng-model="vm.moreRatedUsers"><label>View more rated users</label>
 	</form>
 
 	<div class="elements" ng-repeat="video in vm.videos track by video.name">
