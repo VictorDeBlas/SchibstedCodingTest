@@ -13,17 +13,37 @@ function VideosRouteConfig($routeProvider) {
 
 /* @ngInject */
 function VideosRouteController(videosService) {
-	var vm = this;
+	var vm = this,
+		numberOfItems = 10;
+	
+	vm.videos = [];
 
 	vm.searchVideos = searchVideos;
+	vm.getMoreRatedUsers = getMoreRatedUsers;
 
 	///////
 
-	function searchVideos() {
-		var numberOfItems = ( vm.ipp ) ? vm.ipp : 10;
-		videosService.loadVideos(1, numberOfItems)
+	function searchVideos(ipp) {
+		numberOfItems = ipp;
+		videosService.loadVideos(1, ipp)
 			.then( function(response) {
 				vm.videos = response;
+			});
+	}
+
+	function getMoreRatedUsers() {
+		vm.videos = [];
+		videosService.loadVideos(1, numberOfItems)
+			.then( function(response) {
+				if ( vm.moreRatedUsers ) {
+					response.forEach( function( element ) {
+						if ( element.user.metadata.connections.likes.total > 10 ) {
+							vm.videos.push(element);
+						}
+					});
+				} else {
+					vm.videos = response;
+				}
 			});
 	}
 }
