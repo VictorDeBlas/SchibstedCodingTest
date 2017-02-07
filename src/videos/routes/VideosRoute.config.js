@@ -22,7 +22,15 @@ function VideosRouteController(videosService) {
 	vm.searchVideos = searchVideos;
 	vm.getMoreRatedUsers = getMoreRatedUsers;
 
+	activate();
+
 	///////
+
+	function activate() {
+		searchVideos(10);
+	}
+
+	/////// PUBLIC FUNCTIONS
 
 	function searchVideos(ipp) {
 		numberOfItems = ipp;

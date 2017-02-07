@@ -1,13 +1,29 @@
 <div class="form">
-
-	<form>
+	<div class="input-container">
 		<h4>Videos</h4>
-		<label class="filter-title">Filters:</label>
-		<label>Items per page: </label><button ng-click="vm.searchVideos(10)">10</button> <button ng-click="vm.searchVideos(25)">25</button> <button ng-click="vm.searchVideos(50)">50</button>
-		<input type="checkbox" ng-change="vm.getMoreRatedUsers()" ng-model="vm.moreRatedUsers"><label>View more rated users</label>
-	</form>
+		<label>Items per page: </label>
+		<div class="buttons-container">
+			<button ng-click="vm.searchVideos(10)">10</button>
+			<button ng-click="vm.searchVideos(25)">25</button>
+			<button ng-click="vm.searchVideos(50)">50</button>
+		</div>
+		<div class="checkbox-container">
+			<input type="checkbox" ng-change="vm.getMoreRatedUsers()" ng-model="vm.moreRatedUsers">
+			<span>View more rated users</span>
+		</div>
+		<div class="search-container">
+			<label>Search: </label> <input type="text" ng-model="vm.searchText">
+		</div>
+	</div>
 
-	<div class="elements" ng-repeat="video in vm.videos track by video.name">
+	<div class="elements-list" ng-repeat="video in vm.videos track by video.name | filter:vm.searchText">
 		<video-item video="video"></video-item>
+	</div>
+	<div class="empty-list" ng-if="vm.videos.length < 1">
+		No videos for the current search...
+	</div>
+	<div class="pagination-container">
+		<button ng-disabled="vm.searchText.length > 0 || vm.moreRatedUsers">Load previous</button>
+		<button ng-disabled="vm.searchText.length > 0 || vm.moreRatedUsers">Load next</button>
 	</div>
 </div>

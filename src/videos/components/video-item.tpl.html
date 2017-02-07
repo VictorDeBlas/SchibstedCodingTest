@@ -1,11 +1,15 @@
 <div class="video-item">
     <img ng-src="{{vm.video.user.pictures.sizes[3].link}}">
     <div class="info-container">
-        <div>{{vm.video.user.name}}</div>
-        <div>Author: {{vm.video.user.link}}</div>
-        <div>Name: {{vm.video.name}}</div>
-        <div>Link: {{vm.video.link}}</div>
-        <div>Description: {{vm.video.description}}</div>
-        <div>Plays: {{vm.video.stats.plays}}</label> <label>Comments: {{vm.video.metadata.connections.comments.total}}</label> <label>Likes: {{vm.video.metadata.connections.likes.total}}</label></div>
+        <div class="video-name">{{vm.video.user.name}}</div>
+        <div class="info-line"><label>Author:</label> {{vm.video.user.link}}</div>
+        <div class="info-line"><label>Name:</label> {{vm.video.name}}</div>
+        <div class="info-line"><label>Link:</label> {{vm.video.link}}</div>
+        <div class="info-line"><label>Description:</label> {{vm.video.description}}</div>
+        <div class="info-line stats-container">
+            <div><label>Plays:</label> {{vm.video.stats.plays}} </div>
+            <div><label>Comments:</label> {{vm.video.metadata.connections.comments.total}}</div>
+            <div><label>Likes:</label>{{vm.video.metadata.connections.likes.total}}</div>
+        </div>
     </div>
 </div>
