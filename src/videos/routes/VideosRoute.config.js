@@ -15,28 +15,36 @@ function VideosRouteConfig($routeProvider) {
 function VideosRouteController(videosService) {
 	var vm = this,
 		numberOfItems = 10,
-		videosBackup = [];
+		videosBackup = [],
+		originalList;
 	
 	vm.videos = [];
+	vm.page = 1;
 
 	vm.searchVideos = searchVideos;
 	vm.getMoreRatedUsers = getMoreRatedUsers;
+	vm.filterByDescription = filterByDescription;
+	vm.loadNextPage = loadNextPage;
+	vm.loadPreviousPage = loadPreviousPage;
 
 	activate();
 
 	///////
 
 	function activate() {
-		searchVideos(10);
+		searchVideos(1, 10);
 	}
 
 	/////// PUBLIC FUNCTIONS
 
-	function searchVideos(ipp) {
+	function searchVideos(page, ipp) {
 		numberOfItems = ipp;
-		videosService.loadVideos(1, ipp)
+		vm.ipp = ipp;
+		videosService.loadVideos(page, ipp)
 			.then( function(response) {
-				vm.videos = response;
+				vm.lastPage = response.lastPage;
+				vm.videos = response.list;
+				originalList = vm.videos;
 			});
 	}
 
@@ -51,7 +59,35 @@ function VideosRouteController(videosService) {
 				}
 			});
 		} else {
-			vm.videos = videosBackup;
+			vm.videos = originalList;
+			filterByDescription();
 		}
+	}
+
+	function filterByDescription() {
+		var filteredList = [];
+
+		vm.videos = originalList;
+		if ( !vm.searchText ) {
+			return;
+		}
+
+		vm.videos.filter( function(element) {
+			if ( element.description.indexOf(vm.searchText) > -1 ) {
+				filteredList.push(element);
+			}
+		});
+
+		vm.videos = filteredList;
+	}
+
+	function loadNextPage() {
+		vm.page = vm.page + 1;
+		searchVideos(vm.page, numberOfItems);
+	}
+
+	function loadPreviousPage(){
+		vm.page = vm.page - 1;
+		searchVideos(vm.page, numberOfItems);
 	}
 }

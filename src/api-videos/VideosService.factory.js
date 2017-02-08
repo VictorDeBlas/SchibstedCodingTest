@@ -16,7 +16,10 @@ function VideosServiceFactory(videosRemote) {
 	function loadVideos( page, perPage ) {
 		return videosRemote.loadVideos( page, perPage )
 			.then ( function(response) {
-				return response.data.data.slice(page - 1, perPage*page);
+				return {
+					list: response.data.data.slice( perPage*(page - 1), perPage*page),
+					lastPage: response.data.data.length / perPage
+				};
 			});
 	}
 }

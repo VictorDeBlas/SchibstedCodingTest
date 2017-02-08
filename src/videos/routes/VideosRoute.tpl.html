@@ -3,27 +3,27 @@
 		<h4>Videos</h4>
 		<label>Items per page: </label>
 		<div class="buttons-container">
-			<button ng-click="vm.searchVideos(10)">10</button>
-			<button ng-click="vm.searchVideos(25)">25</button>
-			<button ng-click="vm.searchVideos(50)">50</button>
+			<button ng-click="vm.searchVideos(1, 10)" ng-class="{'active': vm.ipp === 10}">10</button>
+			<button ng-click="vm.searchVideos(1, 25)" ng-class="{'active': vm.ipp === 25}">25</button>
+			<button ng-click="vm.searchVideos(1, 50)" ng-class="{'active': vm.ipp === 50}">50</button>
 		</div>
 		<div class="checkbox-container">
 			<input type="checkbox" ng-change="vm.getMoreRatedUsers()" ng-model="vm.moreRatedUsers">
 			<span>View more rated users</span>
 		</div>
 		<div class="search-container">
-			<label>Search: </label> <input type="text" ng-model="vm.searchText">
+			<label>Search: </label> <input type="text" ng-model="vm.searchText" ng-change="vm.filterByDescription()">
 		</div>
 	</div>
 
-	<div class="elements-list" ng-repeat="video in vm.videos track by video.name | filter:vm.searchText">
+	<div class="elements-list" ng-repeat="video in vm.videos track by video.name">
 		<video-item video="video"></video-item>
 	</div>
 	<div class="empty-list" ng-if="vm.videos.length < 1">
 		No videos for the current search...
 	</div>
-	<div class="pagination-container">
-		<button ng-disabled="vm.searchText.length > 0 || vm.moreRatedUsers">Load previous</button>
-		<button ng-disabled="vm.searchText.length > 0 || vm.moreRatedUsers">Load next</button>
+	<div class="pagination-container" ng-if="vm.ipp === 10">
+		<button ng-disabled="vm.searchText.length > 0 || vm.moreRatedUsers || vm.page === 1" ng-click="vm.loadPreviousPage()">Load previous</button>
+		<button ng-disabled="vm.searchText.length > 0 || vm.moreRatedUsers || vm.page === vm.lastPage" ng-click="vm.loadNextPage()">Load next</button>
 	</div>
 </div>
